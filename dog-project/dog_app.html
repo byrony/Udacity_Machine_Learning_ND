@@ -13489,6 +13489,7 @@ y/W51mWwuFyX63J9rnUZLC7X5bpcn2tdBovLdbku1+dal8Hicl2uy/W51mWwuFyX63J9rvX/Ac1N
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Question 2:</strong> This algorithmic choice necessitates that we communicate to the user that we accept human images only when they provide a clear view of a face (otherwise, we risk having unneccessarily frustrated users!). In your opinion, is this a reasonable expectation to pose on the user? If not, can you think of a way to detect humans in images that does not necessitate an image with a clearly presented face?</p>
 <p><strong>Answer:</strong></p>
+<p>I think users at least me think the face algorithm should be more intelligent even though the face is not clear or only a part of the face is shown in the image. According to human experience, we can predict whether there is a human image based on not only the face features, but also head, hair, arm and body. With those addition features, the algorithm can be more tolerable to image without a clearly presented face.</p>
 <p>We suggest the face detector from OpenCV as a potential way to detect human images in your algorithm, but you are free to explore other approaches, especially approaches that make use of deep learning :).  Please use the code cell below to design and test your own face detection algorithm.  If you decide to pursue this <em>optional</em> task, report performance on each of the datasets.</p>
 
 </div>
@@ -16479,7 +16480,15 @@ fw/3LfbIv4f7Fv8NuldZHJUwKbMAAAAASUVORK5CYII=
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>This is a very interesting aglorithm! It predicted all the sampel dogs correctly, and also knew a cat was neither human nor dog. For human image, it recongnized the human face and the resembling dog. Generally, the algorithm worked better than I expected.</p>
-<p>Since some of the dog breeds has only several training images, the performance would be better if we have more training samples. Also, more detailed feature may help. For example, one sample image actually is Husky however the algorithm predicted it as Alaskan malamute. Those two breeds are quite similar but still have minor difference on their faces. In addition, although our simple architecture works good, fine tuned architecture and parameters would still improve.</p>
+<p>Some points of improvement:</p>
+<ul>
+<li><p>Since some of the dog breeds have only several training images, the performance would be better if we have more training samples for those breeds.</p>
+</li>
+<li><p>Also, more detailed feature may help. We can add more filters in the architecture to learning more features. For example, one sample image actually is Husky however the algorithm predicted it as Alaskan malamute. Those two breeds are quite similar but still have minor difference on their faces.</p>
+</li>
+<li><p>Although our simple architecture works good, fine tuned parameters and architecture would still improve, e.g. add dropout, add normalization, etc.</p>
+</li>
+</ul>
 
 </div>
 </div>
