@@ -26,10 +26,13 @@ test <- combi[(nrow(train)+1) : nrow(combi), ]
 #train <- cbind(train, loss = loss)
 
 ##########################
+# convert the training set and testing set into appropriate format for model
 train_matrix <- xgb.DMatrix(sparse.model.matrix(~.-1, data = as.data.frame(train)), label=log(loss))
 test_matrix <- xgb.DMatrix(sparse.model.matrix(~.-1, data = as.data.frame(test)))
 #label <- loss
 ##########################
+
+# set parameters
 set.seed(12345678)
 params <- list(
   eta = 0.0404096, # Santander overfitting magic number X2
@@ -43,7 +46,7 @@ params <- list(
   eval_metric = 'mae',
   num_parallel_tree = 1) 
 
-
+# training XGBoost using default cross validation, return the model with best number of iteration
 xgb_cv <- xgb.cv(params = params,
                  train_matrix,
                  nthread = 4,
@@ -55,6 +58,7 @@ xgb_cv <- xgb.cv(params = params,
 
 best_nround <- xgb_cv$best_iteration
 
+# fit the best model with all the training data
 set.seed(12345)
 xgb_fit <- xgb.train(params = params,
                    train_matrix,
@@ -65,7 +69,7 @@ xgb_fit <- xgb.train(params = params,
                    print_every_n = 10
                    )
 
-
+# predict testing data
 pred_xgb <- predict(xgb_fit, test_matrix)
 
 submission <- fread('sample_submission.csv', header = TRUE)

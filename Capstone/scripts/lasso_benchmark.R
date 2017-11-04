@@ -24,6 +24,9 @@ train <- cbind(train, loss = loss)
 
 
 ### a function to show cross validation mae
+# this function train lasso or ridge regression model. 
+# each time use the k-1 folds data to train model, and the rest 1 fold to validation repeat the process for each fold.
+
 ENet_show_cv_performance <- function(data, labelName, predictors, alpha = 0, k=5, seed=1989,
                                      family = 'gaussian', metric = 'mae'){
   cv_mae <- vector(mode = 'logical', length = k)
